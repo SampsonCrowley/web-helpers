@@ -1,6 +1,6 @@
 {
   "name": "@web-helpers/core",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Core Helper Functions for Client-Side Code",
   "license": "MIT",
   "main": "index.js",

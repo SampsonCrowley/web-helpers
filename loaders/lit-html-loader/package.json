@@ -1,7 +1,7 @@
 {
   "name": "@web-helpers/lit-html-loader",
   "license": "MIT",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Generate html`...` exports of sanitized html snippets",
   "main": "dist/lit-html-loader.js",
   "repository": {},
