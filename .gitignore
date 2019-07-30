@@ -1,0 +1,16 @@
+## npm
+/**/node_modules
+/**/npm-debug.log
+/**/yarn-error.log
+
+## temp folders
+/**/.tmp/
+/**/tmp/
+!/**/.tmp/.keep
+!/**/.tmp/**/.keep
+!/**/tmp/.keep
+!/**/tmp/**/.keep
+
+# env files
+/**/.env
+!/**/.keep

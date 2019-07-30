@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+pushd packages
+npm init @open-wc --type scaffold --scaffoldType wc --features linting testing demoing building --buildingType rollup --scaffoldFilesFor linting testing demoing building --tagName "$1-helper" --writeToDisk true --installDependencies yarn
+popd
