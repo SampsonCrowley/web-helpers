@@ -3,7 +3,7 @@
   "module": "template.js",
   "jsnext:main": "template.js",
   "main": "register-template-helper.js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Webcomponent template component following open-wc recommendations",
   "author": "Sampson Crowley",
   "homepage": "https://github.com/SampsonCrowley/web-helpers/",

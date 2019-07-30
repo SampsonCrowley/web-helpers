@@ -1,19 +1,19 @@
 {
   "name": "@web-helpers/elixir-webpack-config",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Preset Elixir-Phoenix Framework config for using web-components",
   "main": "webpack.config.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "peerDependencies": {
-    "@web-helpers/lit-css-loader": "0.0.1",
-    "@web-helpers/lit-html-loader": "0.0.1",
     "@babel/core": "^7.4.5",
     "@babel/plugin-proposal-class-properties": "^7.5.0",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/plugin-transform-template-literals": "^7.4.4",
     "@babel/preset-env": "^7.4.5",
+    "@web-helpers/lit-css-loader": "0.0.1",
+    "@web-helpers/lit-html-loader": "0.0.1",
     "babel-loader": "^8.0.6",
     "copy-webpack-plugin": "^5.0.3",
     "css-loader": "^3.0.0",

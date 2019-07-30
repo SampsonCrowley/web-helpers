@@ -2,7 +2,7 @@
   "name": "@web-helpers/lit-html-loader",
   "author": "Sampson Crowley",
   "license": "MIT",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Generate html`...` exports of sanitized html snippets",
   "main": "dist/lit-html-loader.js",
   "repository": {},
