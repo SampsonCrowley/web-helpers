@@ -81,7 +81,7 @@ const CJSBabelLoader = {
 
 module.exports = () => ([
   {
-    devtool: _options.devtool || 'source-map',
+    devtool: 'source-map',
     optimization: {
       runtimeChunk: {
         name: 'shared-runtime'
