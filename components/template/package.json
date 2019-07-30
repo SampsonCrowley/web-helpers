@@ -13,6 +13,7 @@
     "*"
   ],
   "scripts": {
+    "prepublishOnly": "yarn build",
     "start": "es-dev-server --app-index demo/index.html --node-resolve --open --watch",
     "start:compatibility": "es-dev-server --app-index demo/index.html --compatibility all --node-resolve --open --watch",
     "lint:eslint": "eslint --ext .js,.html .",
@@ -31,8 +32,8 @@
     "site:build": "npm run storybook:build",
     "storybook": "start-storybook -p 9001",
     "storybook:build": "build-storybook -o _site -s storybook-static",
-    "start:build": "cd dist && es-dev-server --open",
-    "build": "rimraf dist && rollup -c rollup.config.js"
+    "start:build": "cd package && es-dev-server --open",
+    "build": "rimraf package && rollup -c rollup.config.js"
   },
   "dependencies": {
     "lit-element": "^2.0.1",
