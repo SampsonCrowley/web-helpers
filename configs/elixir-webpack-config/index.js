@@ -1,27 +1,13 @@
 const path = require('path');
+const _mainBasePath = path.dirname(module.parent.filename);
+delete require.cache[__filename];
+
 const glob = require('glob');
-const _basePath = path.dirname(require.main.filename)
 
 const JSMinifierPlugin = require('terser-webpack-plugin');
 const CSSMinifierPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const LitCSSLoader = {
-  loader: '@web-helpers/lit-css-loader'
-}
-const LitHTMLLoader = {
-  loader: '@web-helpers/lit-html-loader',
-  options: {
-    filename: '[path][name].html',
-    path: path.resolve(_basePath, '../priv/static/html'),
-    aliasedAs: 'html',
-    minify: {
-      collapseBooleanAttributes: true,
-      collapseWhitespace: true,
-      minifyCSS: true,
-      minifyJS: true,
-    }
-  }
-}
+
 
 const babelPlugins = [
   "@babel/plugin-syntax-dynamic-import",
@@ -50,18 +36,38 @@ module.exports = {
   babelPlugins: babelPlugins,
   esmBrowsers: esmBrowsers,
   legacyBrowsers: legacyBrowsers,
-  createConfig: (options) => {
-    options = options || {}
+  createConfig: (_options) => {
+    const userOptions = _options || {}
+
+
+
+
+    const LitHTMLLoader = {
+      loader: '@web-helpers/lit-html-loader',
+      options: {
+        filename: '[path][name].html',
+        path: path.resolve(_basePath, '../priv/static/html'),
+        aliasedAs: 'html',
+        minify: {
+          collapseBooleanAttributes: true,
+          collapseWhitespace: true,
+          minifyCSS: true,
+          minifyJS: true,
+        }
+      }
+    }
+
+    const _basePath = userOptions.configDir || _mainBasePath
 
     const ESMBabelLoader = {
       loader: 'babel-loader',
       options: {
-        presets: [
+        presets: userOptions.esmBabelPresets || [
           [
             '@babel/preset-env',
             {
                 targets: {
-                    browsers: options.esmBrowsers || esmBrowsers
+                    browsers: userOptions.esmBrowsers || esmBrowsers
                 },
                 useBuiltIns: 'usage',
                 modules: false,
@@ -69,19 +75,19 @@ module.exports = {
             }
           ]
         ],
-        plugins: options.esmBabelPlugins || options.babelPlugins || babelPlugins
+        plugins: userOptions.esmBabelPlugins || userOptions.babelPlugins || babelPlugins
       }
     }
 
     const CJSBabelLoader = {
       loader: 'babel-loader',
       options: {
-        presets: [
+        presets: userOptions.legacyBabelPresets || [
           [
             '@babel/preset-env',
             {
                 targets: {
-                    browsers: options.legacyBrowsers || legacyBrowsers
+                    browsers: userOptions.legacyBrowsers || legacyBrowsers
                 },
                 useBuiltIns: 'usage',
                 modules: false,
@@ -89,7 +95,7 @@ module.exports = {
             }
           ]
         ],
-        plugins: options.legacyBabelPlugins || options.babelPlugins || babelPlugins
+        plugins: userOptions.legacyBabelPlugins || userOptions.babelPlugins || babelPlugins
       }
     }
 
@@ -110,7 +116,7 @@ module.exports = {
           ]
         },
         entry: {
-            app: ['./js/app.js'].concat(glob.sync('./vendor/**/*.js'))
+            app: [path.resolve(_basePath, 'js/app.js')].concat(glob.sync(path.resolve(_basePath, 'vendor/**/*.js')))
         },
         output: {
           filename: '[name].js',
@@ -148,7 +154,7 @@ module.exports = {
               use: [
                 // CJSBabelLoader,
                 CJSBabelLoader,
-                LitCSSLoader,
+                '@web-helpers/lit-css-loader',
                 'stylus-loader'
               ]
             },
@@ -176,7 +182,7 @@ module.exports = {
           ]
         },
         plugins: [
-          new CopyWebpackPlugin([{ from: 'static/', to: '../' }])
+          new CopyWebpackPlugin([{ from: path.resolve(_basePath, 'static/'), to: path.resolve(_basePath, '../priv/static/') }])
         ]
       },
       {
@@ -194,7 +200,7 @@ module.exports = {
           ]
         },
         entry: {
-            app: ['./js/app.esm.js'].concat(glob.sync('./vendor/**/*.js'))
+            app: ['./js/app.esm.js'].concat(glob.sync(path.resolve(_basePath, 'vendor/**/*.js')))
         },
         output: {
           filename: '[name].esm.js',
@@ -230,7 +236,7 @@ module.exports = {
               test: /\.(css|styl(?:us)?)$/,
               use: [
                 ESMBabelLoader,
-                LitCSSLoader,
+                '@web-helpers/lit-css-loader',
                 'stylus-loader'
               ]
             },
@@ -257,7 +263,7 @@ module.exports = {
           ]
         },
         plugins: [
-          new CopyWebpackPlugin([{ from: 'static/', to: '../' }])
+          new CopyWebpackPlugin([{ from: path.resolve(_basePath, 'static/'), to: path.resolve(_basePath, '../priv/static/') }])
         ]
       }
     ]);
