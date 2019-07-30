@@ -1,7 +1,7 @@
 {
   "name": "@web-helpers/lit-css-loader",
   "license": "MIT",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Automatically generate the style-wrapper that is required for LitElement, simply by importing the CSS/Stylus file",
   "main": "dist/lit-css-loader.js",
   "repository": {},
