@@ -1,8 +1,7 @@
 {
   "name": "@web-helpers/lit-html-loader",
-  "author": "Sampson Crowley",
   "license": "MIT",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Generate html`...` exports of sanitized html snippets",
   "main": "dist/lit-html-loader.js",
   "repository": {},
@@ -11,16 +10,6 @@
     "deploy": "webpack --mode production",
     "start": "yarn deploy"
   },
-  "devDependencies": {
-    "@babel/core": "^7.4.5",
-    "@babel/preset-env": "^7.4.5",
-    "babel-loader": "^8.0.6",
-    "loader-utils": "^1.2.3",
-    "schema-utils": "^2.0.1",
-    "uglifyjs-webpack-plugin": "^2.1.3",
-    "webpack": "^4.35.2",
-    "webpack-cli": "^3.3.5"
-  },
   "peerDependencies": {
     "html-minifier": "^4.0.0",
     "lit-element": "^2.2.0"
@@ -28,5 +17,14 @@
   "dependencies": {
     "html-minifier": "^4.0.0",
     "sanitize-html": "^1.20.1"
-  }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "Sampson Crowley <sampsonsprojects@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/SampsonCrowley/web-helpers/issues"
+  },
+  "homepage": "https://github.com/SampsonCrowley/web-helpers#readme",
+  "gitHead": "2074697b8a3197fe8b1aa9c93de365f33fbea358"
 }

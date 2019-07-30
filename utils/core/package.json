@@ -1,7 +1,8 @@
 {
   "name": "@web-helpers/core",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Core Helper Functions for Client-Side Code",
+  "license": "MIT",
   "main": "index.js",
   "files": [
     "*"
@@ -10,13 +11,13 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "peerDependencies": {
-    "@web-helpers/lit-css-loader": "0.0.1",
-    "@web-helpers/lit-html-loader": "0.0.1",
     "@babel/core": "^7.4.5",
     "@babel/plugin-proposal-class-properties": "^7.5.0",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/plugin-transform-template-literals": "^7.4.4",
     "@babel/preset-env": "^7.4.5",
+    "@web-helpers/lit-css-loader": "0.0.1",
+    "@web-helpers/lit-html-loader": "0.0.1",
     "babel-loader": "^8.0.6",
     "copy-webpack-plugin": "^5.0.3",
     "css-loader": "^3.0.0",
@@ -38,15 +39,14 @@
     "url": "git+https://github.com/SampsonCrowley/web-helpers.git"
   },
   "keywords": [
-    "webpack",
-    "elixir",
-    "webcomponents",
+    "utilities",
+    "web",
     "ESModules"
   ],
   "author": "Sampson Crowley <sampsonsprojects@gmail.com>",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/SampsonCrowley/web-helpers/issues"
   },
-  "homepage": "https://github.com/SampsonCrowley/web-helpers#readme"
+  "homepage": "https://github.com/SampsonCrowley/web-helpers#readme",
+  "gitHead": "2074697b8a3197fe8b1aa9c93de365f33fbea358"
 }
