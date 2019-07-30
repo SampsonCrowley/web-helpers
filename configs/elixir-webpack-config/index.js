@@ -1,5 +1,7 @@
 const path = require('path');
 const glob = require('glob');
+const _basePath = path.dirname(require.main.filename)
+
 const JSMinifierPlugin = require('terser-webpack-plugin');
 const CSSMinifierPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -10,7 +12,7 @@ const LitHTMLLoader = {
   loader: '@web-helpers/lit-html-loader',
   options: {
     filename: '[path][name].html',
-    path: path.resolve(__dirname, '../priv/static/html'),
+    path: path.resolve(_basePath, '../priv/static/html'),
     aliasedAs: 'html',
     minify: {
       collapseBooleanAttributes: true,
@@ -42,6 +44,7 @@ const legacyBrowsers = [
   "last 5 versions",
   "ie >= 9"
 ]
+
 
 module.exports = {
   babelPlugins: babelPlugins,
@@ -111,19 +114,19 @@ module.exports = {
         },
         output: {
           filename: '[name].js',
-          path: path.resolve(__dirname, '../priv/static/js'),
+          path: path.resolve(_basePath, '../priv/static/js'),
           publicPath: '/js/',
           chunkFilename: '[name].js'
         },
         resolve: {
           extensions: [ '.js', '.jsx', '.styl', '.css' ],
           alias: {
-            css: path.resolve(__dirname, 'css'),
-            html: path.resolve(__dirname, 'html'),
-            images: path.resolve(__dirname, 'static', 'images')
+            css: path.resolve(_basePath, 'css'),
+            html: path.resolve(_basePath, 'html'),
+            images: path.resolve(_basePath, 'static', 'images')
           },
           modules: [
-            path.resolve(__dirname, 'js'),
+            path.resolve(_basePath, 'js'),
             'node_modules'
           ]
         },
@@ -136,7 +139,7 @@ module.exports = {
               include: [
                 // These packages are distributed as es2015 modules, therefore they need
                 // to be transpiled to es5.
-                path.resolve(__dirname, 'js'),
+                path.resolve(_basePath, 'js'),
                 /node_modules(?:\/|\\)lit-element|lit-html|@web-helpers/
               ]
             },
@@ -195,19 +198,19 @@ module.exports = {
         },
         output: {
           filename: '[name].esm.js',
-          path: path.resolve(__dirname, '../priv/static/js'),
+          path: path.resolve(_basePath, '../priv/static/js'),
           publicPath: '/js/',
           chunkFilename: '[name].esm.js'
         },
         resolve: {
           extensions: [ '.mjs', '.esm.js', '.js', '.jsx', '.styl', '.css' ],
           alias: {
-            css: path.resolve(__dirname, 'css'),
-            html: path.resolve(__dirname, 'html'),
-            images: path.resolve(__dirname, 'static', 'images')
+            css: path.resolve(_basePath, 'css'),
+            html: path.resolve(_basePath, 'html'),
+            images: path.resolve(_basePath, 'static', 'images')
           },
           modules: [
-            path.resolve(__dirname, 'js'),
+            path.resolve(_basePath, 'js'),
             'node_modules'
           ]
         },
@@ -219,7 +222,7 @@ module.exports = {
               include: [
                 // These packages are distributed as es2015 modules, therefore they need
                 // to be transpiled to es5.
-                path.resolve(__dirname, 'js'),
+                path.resolve(_basePath, 'js'),
                 // /node_modules(?:\/|\\)lit-element|lit-html/
               ]
             },
