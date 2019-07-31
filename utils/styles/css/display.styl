@@ -1,0 +1,201 @@
+@import 'flex-functions'
+
+.d
+  layout flex
+
+.d-inline
+  layout inline-flex
+
+.d-horizontal
+  layout flex
+  flex-direction row
+
+.d-horizontal-reverse
+  layout flex
+  flex-direction row-reverse
+
+.d-vertical
+  layout flex
+  flex-direction column
+
+.d-vertical-reverse
+  layout flex
+  flex-direction column-reverse
+
+.d-wrap
+  flex-wrap wrap
+
+.d-wrap-reverse
+  flex-wrap wrap-reverse
+
+.d-flex-auto
+  flex 1 1 auto
+
+.d-flex-none
+  flex none
+
+.d-flex
+  flex 1
+  -webkit-flex-basis: 0.000000001px;
+  flex-basis: 0.000000001px;
+
+.d-flex-2
+  flex 2
+
+.d-flex-3
+  flex 3
+
+.d-flex-4
+  flex 4
+
+.d-flex-5
+  flex 5
+
+.d-flex-6
+  flex 6
+
+.d-flex-7
+  flex 7
+
+.d-flex-8
+  flex 8
+
+.d-flex-9
+  flex 9
+
+.d-flex-10
+  flex 10
+
+.d-flex-11
+  flex 11
+
+.d-flex-12
+  flex 12
+
+/* alignment in cross axis */
+
+.d-start
+  align-items flex-start
+
+.d-center
+  align-items center
+
+.d-end
+  align-items flex-end
+
+.d-baseline
+  align-items baseline
+
+/* alignment in main axis */
+
+.d-start-justified
+  justify-content flex-start
+
+.d-center-justified
+  justify-content center
+
+.d-end-justified
+  justify-content flex-end
+
+.d-around-justified
+  justify-content space-around
+
+.d-justified
+  justify-content space-between
+
+.d-center-center
+  align-items center
+  justify-content center
+
+/* self alignment */
+
+.d-self-start
+  align-self flex-start
+
+.d-self-center
+  align-self center
+
+.d-self-end
+  align-self flex-end
+
+.d-self-stretch
+  align-self stretch
+
+.d-self-baseline
+  align-self baseline
+
+/* multi-line alignment in main axis */
+
+.d-start-aligned
+  align-content flex-start
+
+.d-end-aligned
+  align-content flex-end
+
+.d-center-aligned
+  align-content center
+
+.d-between-aligned
+  align-content space-between
+
+.d-around-aligned
+  align-content space-around
+
+/*******************************
+          Other Layout
+*******************************/
+
+.d-block
+  display: block
+
+.d-invisible
+  visibility: hidden !important
+
+.d-relative
+  position: relative
+
+.d-fit
+  position: absolute
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+
+.d-scroll
+  -webkit-overflow-scrolling: touch
+  overflow: auto
+
+.d-fullbleed
+  margin: 0
+  height: 100vh
+
+/* fixed position */
+
+.d-fixed-top
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+
+.d-fixed-right
+  position: fixed
+  top: 0
+  right: 0
+  bottom: 0
+
+.d-fixed-bottom
+  position: fixed
+  right: 0
+  bottom: 0
+  left: 0
+
+.d-fixed-left
+  position: fixed
+  top: 0
+  bottom: 0
+  left: 0
+
+.d-contain
+  max-width: 64rem
+  margin-right: auto
+  margin-left: auto

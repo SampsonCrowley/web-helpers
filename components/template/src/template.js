@@ -1,5 +1,5 @@
 import { html, css, LitElement } from 'lit-element';
-import registerEl from './register'
+import registerEl from '@web-helpers/core/register-element'
 
 export class Template extends LitElement {
   static get styles() {
