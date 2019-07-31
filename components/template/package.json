@@ -3,7 +3,7 @@
   "module": "template.js",
   "jsnext:main": "template.js",
   "main": "register-template-helper.js",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Webcomponent template component following open-wc recommendations",
   "author": "Sampson Crowley",
   "homepage": "https://github.com/SampsonCrowley/web-helpers/",
@@ -36,7 +36,7 @@
     "build": "rimraf package && rollup -c rollup.config.js"
   },
   "dependencies": {
-    "@web-helpers/core": "^0.0.4",
+    "@web-helpers/core": "^0.0.5",
     "lit-element": "^2.0.1",
     "lit-html": "^1.0.0"
   },
