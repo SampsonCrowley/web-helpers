@@ -1,6 +1,6 @@
 {
   "name": "@web-helpers/core",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "description": "Core Helper Functions for Client-Side Code",
   "license": "MIT",
   "main": "index.js",
@@ -51,5 +51,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "d6d042d3b628e11b3cc03e8b3da25dddacdb48f8"
+  "gitHead": "4f804aafb6422ad672f5d0348063c242d33ba97e"
 }
