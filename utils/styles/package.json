@@ -1,6 +1,6 @@
 {
   "name": "@web-helpers/styles",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Base Styles for Web-Components",
   "license": "MIT",
   "main": "index.js",
