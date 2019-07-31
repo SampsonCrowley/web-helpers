@@ -226,7 +226,7 @@ module.exports = {
                 // These packages are distributed as es2015 modules, therefore they need
                 // to be transpiled to es5.
                 path.resolve(_basePath, 'js'),
-                /node_modules(?:\/|\\)lit-element|lit-html/
+                /node_modules(?:\/|\\)lit-element|lit-html|@web-helpers/
               ]
             },
             {

@@ -1,6 +1,6 @@
 import { css, unsafeCSS } from 'lit-element';
 import { ButtonStyles } from './button-styles'
-import sharedStylus from './shared'
+import sharedStylus from './css/shared'
 
 export const SharedStyles = css`
   ${ sharedStylus }
