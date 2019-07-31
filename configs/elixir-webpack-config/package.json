@@ -1,6 +1,6 @@
 {
   "name": "@web-helpers/elixir-webpack-config",
-  "version": "0.0.7-alpha.2",
+  "version": "0.0.7",
   "description": "Preset Elixir-Phoenix Framework config for using web-components",
   "main": "index.js",
   "scripts": {
