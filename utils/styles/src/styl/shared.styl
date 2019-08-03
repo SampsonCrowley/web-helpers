@@ -1,0 +1,84 @@
+@import 'colors'
+
+:root
+*
+*:after
+*:before
+  box-sizing: border-box
+
+:root
+:host
+  --app-drawer-width: 256px
+
+  --app-primary-color: google-pink
+  --app-primary-color-transparent: alpha(google-pink, 0.25)
+  --app-secondary-color: charcoal
+  --app-dark-text-color: var(--app-secondary-color)
+  --app-light-text-color: white
+  --app-section-even-color: semi-white
+  --app-section-odd-color: white
+
+  --app-header-background-color: white
+  --app-header-text-color: var(--app-dark-text-color, charcoal)
+  --app-header-selected-color: var(--app-primary-color, rgb(233, 30, 99))
+
+  --app-drawer-background-color: var(--app-secondary-color, charcoal)
+  --app-drawer-text-color: var(--app-light-text-color, white)
+  --app-drawer-selected-color: var(--app-primary-color, google-pink)
+
+  --clickableCursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAXCAYAAAAGAx/kAAAABmJLR0QAAAAAAAD5Q7t/AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4QsJFAAxUeUXigAAAj5JREFUOMvtlM1OU0EYhp/h/Mycc9om0EQjCHFhGhK9BIMuXPYqTLwDWMnajWHnipWJC1YkDRdA0gBxgctuENKkYAFjSQk0aU97znwubCvWBq0LV76rdyYzT753Zr6B//pnckbGU0AIuP2x/A10KpvNvtZad3zfj33ffwUYQE0Kymut4+PjY9nf35cwDK+B+zequ1WDRQrIKKXU/Pw8nuchIk4/pgMkv41zw4+L4AH+mLO8FfST4jg2URR9CMOwCjwDgj+BKuCBMaYrInJ+fi7FYlHq9bqsra2J1roVhuF1GIaXwEvgDqBHC1H9CIUB6OzsTNbX10VEpF6vS6FQkFqtJru7uxIEQeJ5XpLJZD4DxX6VCuCxMabpOE4SRVEyAB0cHMhAKysrQ7+8vCwiIhsbG+I4Tgo8AnyiKHq3urpqK5WK5HI5KyJycXEhvV5vuHlvb2/oy+Xy0BtjesATIGR6evpTuVyWk5MTyeVyMk7W2qFPkmQU9BSIppIkyc/OzqK1RqnvL6DRaFCtVknTlGazydHREXEc02q1ODw8HP8grbVeEATMzMyws7ODiLC1tYXjOCwsLFAqlXBdl7m5OTY3N/E8j8XFxV+vXWvdrtVqJp/PT9yc2Ww26XQ6z4GPbpqmbq/X4+rqaiKItRZrrQJSANcY83V7e/ve0tLSRKBSqYTWutHtdq8BUcALrfVbpZTruq6IiBL58Q2N+GE/KqXa7Xb7DfAeOFX9Dr8LPASyowlufG52ZP4SOAW+AO1vPI1K+YCnca0AAAAASUVORK5CYII=") 4 7, pointer;
+
+  --externalCursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAXCAYAAAAGAx/kAAAABmJLR0QAAAAAAAD5Q7t/AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4QsJFAAfjTMaRQAAAtVJREFUOMudlE1LZEcUhp/qW/fWvbe8PdGWhNZgsgiNkPyE4LjIJuAu/2Bg/oGSRVxnExpcZOUqkIUroXUhiKA2KrNwlm4cP6A1PRqiKNqZtvt+nCzUpunRQXOg4KUO9XDOeatK8cTwPO/EcZwXQBBFEQBKKeI4xnVd1FNBjuPEBwcH2hjzUa5YLMJzQM1mUx4KQJ4MyuVybd/348HBQVlfX///IOAnY0xreXlZREQWFhY+CcoBFggADZ0ZjgdB0FhZWRERkaWlJfE871FQLoqiX40xN57ntTzP+wXwAaW1vi6XyyIisra2JtbaDHgUVDDGtI6OjmR7e1vCMLwGvryr7Edr7b8zMzNirf0A/AyI1jrVWqfdIAV85ft+W0Tk5OREgiD4AJSAe7/HXde9BCaAfqDYvXRXRQ/dKRfwgARYj+P4s0ddfSzRarV8a+2bMAwPgfE7AzzA+ZS1Cvj6vrXT01OZmJiQer0u5XJZjDGNMAyvwzC8BF4Dn9+1nOuFuECpe0azs7MiIlKv16VUKkmtVpPNzU0JgiBxXTfp6+v7625e3v1YvvN9/8JxnMRam9yDdnd3O/ZOTU119OTkpIiIzM3NieM4KfAt4GGt/WN6ejrb2dmRfD6fiYicn59LHMedw1tbWx1drVY72vf9GPgeCOnv739XrVbl+PhY8vn8g48yy7KOTpKkF/QSsLkkSQpDQ0MYY1Dq9gacnZ1xeHhImqZcXFywv79Pq9Wi0Wiwt7f3oFs6yzI3CAIGBgbY2NhARFhcXMRxHEZGRqhUKmitGR4eZn5+Htd1GR0d/dh2Y0yzVqv5hUKB50YURcnNzc0PwFudpqmO45irq6tnQbIsI8syBaQA2vf9f1ZXV4tjY2PPAlUqFYwxZ+12+xoQBbwyxvyulNJaaxERdfsz3EaP7rxHpVSz2Wz+BvwJvFdACHwBfANEvR10fRFZz/4l8B74G2j+Bx4o1cS4grKVAAAAAElFTkSuQmCC") 4 7, pointer;
+
+  --copyableCursor: url("data:image/png;base64,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") 0 0, pointer;
+
+a
+.anchor-button
+.button
+.clickable
+.pointer
+  &[disabled]
+  &.disabled
+    pointer-events: none;
+    cursor: default;
+    &.button
+      opacity: .65
+
+  &:not([disabled])
+    &, *
+      cursor: var(--clickableCursor)
+
+    &[target], &[target] *
+      cursor: var(--externalCursor)
+.primary
+  color: #007BFF
+
+a
+.anchor-button
+  color: #007BFF
+  text-decoration: none
+  background: none
+  padding: 0
+  font: inherit
+  border: none
+  &:hover
+    text-decoration: underline
+    color: blue
+  .hover-success &:hover
+    color: green
+  .hover-primary &:hover
+    color: navy
+  .hover-inverse &:hover
+    color: white
+
+.copy-clip
+.copyable
+  &:not([disabled])
+  &:not([disabled]):not([disabled])
+    cursor: var(--copyableCursor)
+img
+  max-width: 100%;
+.text-center
+  text-align: center
+.rounded
+  border-radius: .25em

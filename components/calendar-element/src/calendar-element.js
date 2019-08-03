@@ -1,16 +1,29 @@
 import { LitElement, html } from 'lit-element';
 import { CalendarStyles, SharedStyles } from '@web-helpers/styles'
 import { DateSerializer, registerElement } from '@web-helpers/core'
-import dateFns from 'date-fns'
+// "date-fns": "^2.0.0-beta.3",
+import {
+  addDays as dateFnsAddDays,
+  addMonths as dateFnsAddMonths,
+  endOfMonth as dateFnsEndOfMonth,
+  endOfWeek as dateFnsEndOfWeek,
+  format as dateFnsFormat,
+  isSameMonth as dateFnsIsSameMonth,
+  startOfMonth as dateFnsStartOfMonth,
+  startOfWeek as dateFnsStartOfWeek,
+} from 'date-fns'
 
-import './calendar-body'
-import './calendar-header'
+import { parseValidDate } from '@web-helpers/core'
 
-const headerFormat = 'MMMM YYYY',
-      labelFormat = "dddd",
-      dayFormat = 'D'
+import './calendar-element-body'
+import './calendar-element-header'
 
-export class CalendarElement extends LitElement {
+const headerFormat = 'MMMM yyyy',
+      labelFormat = "EEEE",
+      dayFormat = 'd',
+      weekdays = [...7].map(i => dateFnsAddDays(dateFnsStartOfWeek(new Date()), i))
+
+export default class CalendarElement extends LitElement {
   static get properties() {
     return {
       selectedDate: {
@@ -29,6 +42,7 @@ export class CalendarElement extends LitElement {
       _endOfMonth: { attribute: false },
       _bodyStartDate: { attribute: false },
       _bodyEndDate: { attribute: false },
+      _weekdays: { attribute: false },
     };
   }
 
@@ -49,6 +63,7 @@ export class CalendarElement extends LitElement {
     this._currentMonth = new Date()
 
     this._buildStateForMonth()
+    this._buildWeekdays()
   }
 
   render() {
@@ -71,17 +86,23 @@ export class CalendarElement extends LitElement {
         </div>
       </header>
 
-      <calendar-header labelFormat="${this.labelFormat}"></calendar-header>
+      <ul class="weekdays">
+        ${this.weekdays}
+      </ul>
 
-      <calendar-body
+      <calendar-element-body
         .startDate="${this._bodyStartDate}"
         .endDate="${this._bodyEndDate}"
         .currentMonth="${this._currentMonth}"
         .selectedDate="${this.selectedDate}"
         .dayFormat="${this.dayFormat}"
         @date-clicked=${this._onDateClick}
-      ></calendar-body>
+      ></calendar-element-body>
     `
+  }
+
+  get weekdays() {
+    return this._weekdays || this._buildWeekdays() || []
   }
 
   get selectedDate() {
@@ -91,11 +112,11 @@ export class CalendarElement extends LitElement {
   set selectedDate(value) {
     const oldValue = this._selectedDate
 
-    this._selectedDate = value ? dateFns.parse(value) : null
+    this._selectedDate = parseValidDate(value)
 
     this.requestUpdate('selectedDate', oldValue)
 
-    if(this.selectedDate && !dateFns.isSameMonth(this.selectedDate, this._startOfMonth)) {
+    if(this.selectedDate && !dateFnsIsSameMonth(this.selectedDate, this._startOfMonth)) {
       this._currentMonth = this.selectedDate
       this._buildStateForMonth()
     }
@@ -104,7 +125,7 @@ export class CalendarElement extends LitElement {
       new CustomEvent(
         'date-change',
         {
-          detail: { date: this.selectedDate, value: this.selectedDate ? dateFns.format(this.selectedDate, 'YYYY-MM-DD') : null },
+          detail: { date: this.selectedDate, value: this.selectedDate ? dateFnsFormat(this.selectedDate, 'yyyy-MM-dd') : null },
           bubbles: true,
           cancelable: false,
         }
@@ -121,6 +142,8 @@ export class CalendarElement extends LitElement {
 
     this._labelFormat = String(value || '')
 
+    this._buildWeekdays()
+
     this.requestUpdate('labelFormat', oldValue)
   }
 
@@ -136,24 +159,36 @@ export class CalendarElement extends LitElement {
     this.requestUpdate('dayFormat', oldValue)
   }
 
-  _calcHeaderText(date, format) {
-    return dateFns.format(date, format || headerFormat)
+  get labelFormat() {
+    return this._labelFormat || labelFormat
+  }
+
+  set labelFormat(value) {
+    const oldValue = this._labelFormat
+
+    this._labelFormat = String(value || '')
+
+    this.requestUpdate('labelFormat', oldValue)
+  }
+
+  _calcHeaderText(date, providedFormat) {
+    return dateFnsFormat(date, providedFormat || headerFormat)
   }
 
   _calcWeekStart(date) {
-    return dateFns.startOfWeek(date)
+    return dateFnsStartOfWeek(date)
   }
 
   _calcWeekEnd(date) {
-    return dateFns.endOfWeek(date)
+    return dateFnsEndOfWeek(date)
   }
 
   _calcMonthStart(date) {
-    return dateFns.startOfMonth(date)
+    return dateFnsStartOfMonth(date)
   }
 
   _calcMonthEnd(date) {
-    return dateFns.endOfMonth(date)
+    return dateFnsEndOfMonth(date)
   }
 
   _buildStateForMonth = () => {
@@ -165,8 +200,17 @@ export class CalendarElement extends LitElement {
     this._formattedMonth = this._calcHeaderText(this._currentMonth, this.headerFormat)
   }
 
+  _buildWeekdays = () =>
+    this._weekdays = weekdays.map((day) => html`
+      <li>
+        <abbr title="${dateFnsFormat(day, 'EEEEEE')}">
+          ${dateFnsFormat(day, this.labelFormat)}
+        </abbr>
+      </li>
+    `)
+
   _changeMonth = (count = 1) => {
-    this._currentMonth = dateFns.addMonths(this._currentMonth, count)
+    this._currentMonth = dateFnsAddMonths(this._currentMonth, count)
 
     this._buildStateForMonth()
   }
@@ -181,6 +225,4 @@ export class CalendarElement extends LitElement {
   }
 }
 
-export const register = (tagName) => registerElement(tagName || 'calendar-element', CalendarElement)
-
-export default CalendarElement
+registerElement('calendar-element', CalendarElement)

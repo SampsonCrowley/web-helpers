@@ -1,19 +1,23 @@
-import dateFns from 'date-fns'
+import {
+  lightFormat,
+} from 'date-fns'
+
+import parse, { validDate } from './parse-date'
 
 const DateSerializer  = {
   fromAttribute(value) {
     try {
       if(!value || value === 'null') return null
 
-      value = dateFns.parse(value)
+      value = parse(value)
     } catch(err) {
       console.error(err)
-      value = new Date()
+      value = null
     }
-    return value
+    return validDate(value) ? value : null
   },
   toAttribute(value) {
-    return value ? dateFns.format(value, 'YYYY-MM-DD') : null
+    return validDate(value) ? lightFormat(value, 'yyyy-MM-dd') : null
   }
 }
 

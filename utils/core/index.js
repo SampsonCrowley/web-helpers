@@ -1,7 +1,10 @@
+import './iterable-numbers'
+
 export { default as ConnectionSpeed } from './connection-speed'
 export { default as DateSerializer } from './date-serializer'
 export { default as MediaQuery } from './media-query'
 export { default as Metadata } from './metadata'
+export { default as parseDate, parseValidDate, validDate, getLocaleDateString, dateFormats } from './parse-date'
 export { default as Router } from './router'
 export { default as registerElement } from './register-element'
 export { debounce, throttle } from './throttle'

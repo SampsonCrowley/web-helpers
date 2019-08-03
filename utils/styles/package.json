@@ -4,10 +4,19 @@
   "description": "Base Styles for Web-Components",
   "license": "MIT",
   "main": "index.js",
+  "module": "index.js",
   "files": [
     "*"
   ],
   "scripts": {
+    "prepublishOnly": "yarn build",
+    "build": "yarn build:css && yarn build:js && yarn copy:css && yarn copy:json",
+    "build:css": "yarn build:css:stylus && yarn build:css:transform",
+    "build:css:stylus": "rimraf src/css && mkdir -p src/css && stylus -m -c src/styl/ -o src/css",
+    "build:css:transform": "node transform-css.js",
+    "build:js": "rimraf package && babel --root-mode upward --out-dir package src",
+    "copy:css": "bash -c \" cp -a ./src/{css,styl} package/ \"",
+    "copy:json": "bash -c \" cp -a package.json package/ \"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "peerDependencies": {
@@ -28,7 +37,8 @@
   },
   "homepage": "https://github.com/SampsonCrowley/web-helpers#readme",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "directory": "package"
   },
   "gitHead": "4f804aafb6422ad672f5d0348063c242d33ba97e"
 }

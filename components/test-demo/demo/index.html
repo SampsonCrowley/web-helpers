@@ -1,12 +1,16 @@
 <!doctype html>
 <html lang="en-GB">
 <head>
-  <base href="/components/calendar-element/">
+  <base href="/components/test-demo/">
   <meta charset="utf-8">
   <style>
     body {
       background: #fafafa;
       font-family: Arial;
+    }
+    test-demo {
+      text-align: center;
+      color: #FFF
     }
   </style>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="preload" as="style">
@@ -20,15 +24,15 @@
 
   <script type="module">
     import { html, render } from 'lit-html';
-    import './calendar-element.js';
+    import './test-demo.js';
 
     const d = new Date()
 
     render(
       html`
-        <calendar-element selected-date="asdf">
-          some more light-dom
-        </calendar-element>
+        <test-demo title="asdf">
+          <h4>SLOTTED</h4>
+        </test-demo>
       `,
       document.querySelector('#demo')
     );

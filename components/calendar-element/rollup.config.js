@@ -14,9 +14,6 @@ const outputDir = 'package',
       }),
       external = Object.keys( pkg.peerDependencies ).concat([ "path" ])
 
-
-console.log(config)
-
 export default {
   ...config,
   plugins: [
