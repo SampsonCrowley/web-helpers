@@ -1,0 +1,74 @@
+{
+  "name": "@web-helpers/scroll-listener",
+  "type": "module",
+  "module": "scroll-listener.js",
+  "jsnext:main": "scroll-listener.js",
+  "main": "scroll-listener.js",
+  "version": "0.0.0",
+  "description": "Scroll Wrapper following open-wc recommendations",
+  "author": "Sampson Crowley",
+  "homepage": "https://github.com/SampsonCrowley/web-helpers/",
+  "license": "MIT",
+  "repository": "https://github.com/SampsonCrowley/web-helpers/",
+  "files": [
+    "*"
+  ],
+  "scripts": {
+    "prepublishOnly": "yarn build",
+    "start": "es-dev-server",
+    "start:old": "es-dev-server --app-index demo/index.html --node-resolve --open --watch",
+    "start:compatibility": "es-dev-server --app-index demo/index.html --compatibility all --node-resolve --open --watch",
+    "lint:eslint": "eslint --ext .js,.html .",
+    "format:eslint": "eslint --ext .js,.html . --fix",
+    "lint:prettier": "prettier \"**/*.js\" --list-different || (echo '↑↑ these files are not prettier formatted ↑↑' && exit 1)",
+    "format:prettier": "prettier \"**/*.js\" --write",
+    "lint": "yarn lint:eslint && yarn lint:prettier",
+    "format": "yarn format:eslint && yarn format:prettier",
+    "test": "karma start --coverage",
+    "test:watch": "karma start --auto-watch=true --single-run=false",
+    "test:update-snapshots": "karma start --update-snapshots",
+    "test:prune-snapshots": "karma start --prune-snapshots",
+    "test:compatibility": "karma start --compatibility all --coverage",
+    "test:compatibility:watch": "karma start --compatibility all --auto-watch=true --single-run=false",
+    "test:bs": "karma start karma.bs.config.js --legacy --coverage",
+    "site:build": "yarn storybook:build",
+    "storybook": "start-storybook -p 9001",
+    "storybook:build": "build-storybook -o _site -s storybook-static",
+    "start:build": "cd package && es-dev-server --open",
+    "build": "rimraf package && babel --root-mode upward --out-dir package src",
+    "build:rollup": "rimraf package && rollup -c rollup.config.js"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-class-properties": "^7.5.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/plugin-transform-template-literals": "^7.4.4",
+    "@babel/preset-env": "^7.4.5",
+    "@open-wc/storybook": "^0.2.8"
+  },
+  "dependencies": {
+    "@web-helpers/core": ">=0.0.0",
+    "@web-helpers/styles": ">=0.0.0",
+    "lit-element": "^2.2.1",
+    "lit-html": "^1.1.1"
+  },
+  "peerDependencies": {
+    "@web-helpers/core": ">=0.0.0",
+    "@web-helpers/styles": ">=0.0.0",
+    "lit-element": "^2.2.1",
+    "lit-html": "^1.1.1"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "publishConfig": {
+    "access": "public",
+    "directory": "package"
+  },
+  "gitHead": "d6d042d3b628e11b3cc03e8b3da25dddacdb48f8"
+}

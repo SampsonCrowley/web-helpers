@@ -19,7 +19,13 @@
     "copy:json": "bash -c \" cp -a package.json package/ \"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "peerDependencies": {
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-class-properties": "^7.5.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/plugin-transform-template-literals": "^7.4.4",
+    "@babel/preset-env": "^7.4.5",
     "stylus": "^0.54.5"
   },
   "repository": {

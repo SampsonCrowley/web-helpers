@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <base href="/components/snack-bar/">
+  <meta charset="utf-8">
+  <style>
+    body {
+      background: #fafafa;
+      font-family: Arial;
+      min-height: 1000vh;
+    }
+  </style>
+</head>
+<body>
+  <a href="/demo/index.html">HOME</a>
+  <div id="demo"></div>
+
+  <script type="module">
+    import { html, render } from 'lit-html';
+    import './snack-bar.js';
+
+    render(
+      html`
+        <snack-bar title="asdf">
+          <h4>SLOTTED</h4>
+        </snack-bar>
+      `,
+      document.querySelector('#demo')
+    );
+  </script>
+</body>
+</html>

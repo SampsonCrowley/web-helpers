@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <base href="/components/form-fields/">
+  <meta charset="utf-8">
+  <style>
+    body {
+      background: #fafafa;
+      font-family: Arial;
+    }
+    test-demo {
+      text-align: center;
+      color: #FFF
+    }
+    #demo {
+      margin-top: 1rem;
+    }
+    div {
+      margin-bottom: 1rem;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="preload" as="style">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,900" rel="preload" as="style">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,900" rel="stylesheet">
+</head>
+<body>
+  <a href="/demo/index.html">HOME</a>
+  <div id="demo"></div>
+
+  <script type="module">
+    import { html, render } from 'lit-html';
+    import './index.js';
+
+    const d = new Date()
+
+    const preTransform = function(value, lastKey, caretPosition) {
+      if(
+        (value.length > caretPosition)
+        &&  /^-/.test(this.value.slice(caretPosition, caretPosition + 1))
+        &&  /^[^-]/.test(value.slice(caretPosition, caretPosition + 1))
+      ) {
+        if(/^del/.test(lastKey)) {
+          const slice = () => value = value.slice(0, caretPosition) + value.slice(caretPosition + 1)
+          while(/^-/.test(value.slice(caretPosition, caretPosition + 1))) slice()
+          slice()
+        } else if(/^back/.test(lastKey)) {
+          const slice = () => {
+            value = value.slice(0, caretPosition - 1) + value.slice(caretPosition)
+            caretPosition = caretPosition - 1
+          }
+          while(/^-/.test(value.slice(caretPosition - 1, caretPosition))) slice()
+          slice()
+        }
+      }
+
+      return {
+        value,
+        caretPosition
+      }
+    }
+
+    const transformInput = function (value, type) {
+      value = value.replace(/-/g, '')
+      if(value.length > 3) value = value.slice(0, 3) + '-' + value.slice(3)
+      return value.toUpperCase()
+    }
+
+    render(
+      html`
+        <section>
+          <header>
+            <h3>
+              InputField (${'<input-field></input-field>'})
+            </h3>
+          </header>
+          <div>
+            <input-field
+              .value=${"7023758059"}
+              .label=${'Enter your phone number'}
+              phone-format
+              required
+            >
+            </input-field>
+          </div>
+          <div>
+            <input-field
+              .value=${"ABCDEF"}
+              .label=${'US Dollars'}
+              currency-format
+              required
+            >
+            </input-field>
+          </div>
+          <div>
+            <input-field
+              .value=${"ABCDEF"}
+              .label=${'Shortcode UUID (Custom Transform)'}
+              .preTransform=${preTransform}
+              .transformInput=${transformInput}
+              required
+            >
+            </input-field>
+          </div>
+        </section>
+      `,
+      document.querySelector('#demo')
+    );
+  </script>
+</body>
+</html>

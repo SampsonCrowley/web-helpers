@@ -12,10 +12,14 @@
   },
   "peerDependencies": {
     "html-minifier": "^4.0.0",
-    "lit-element": "^2.2.0"
+    "lit-element": "^2.2.1",
+    "lit-html": "^1.1.1",
+    "sanitize-html": "^1.20.1"
   },
   "dependencies": {
     "html-minifier": "^4.0.0",
+    "lit-element": "^2.2.1",
+    "lit-html": "^1.1.1",
     "sanitize-html": "^1.20.1"
   },
   "publishConfig": {

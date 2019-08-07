@@ -24,9 +24,13 @@
   "dependencies": {
     "@web-helpers/core": ">=0.0.0",
     "@web-helpers/calendar-element": ">=0.0.0",
+    "@web-helpers/easy-layout": ">=0.0.0",
     "@web-helpers/elixir-webpack-config": ">=0.0.0",
+    "@web-helpers/icons": ">=0.0.0",
     "@web-helpers/lit-css-loader": ">=0.0.0",
     "@web-helpers/lit-html-loader": ">=0.0.0",
+    "@web-helpers/scroll-listener": ">=0.0.0",
+    "@web-helpers/snack-bar": ">=0.0.0",
     "@web-helpers/styles": ">=0.0.0"
   },
   "devDependencies": {

@@ -1,0 +1,6 @@
+{
+  "name": "EasyLayoutClient",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./layout.js"
+}

@@ -1,0 +1,37 @@
+{
+  "name": "@web-helpers/icons",
+  "version": "0.0.0",
+  "description": "SVG Icons for Re-use",
+  "license": "MIT",
+  "main": "index.js",
+  "files": [
+    "*"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "date-fns": "^2.0.0-beta.3"
+  },
+  "peerDependencies": {
+    "date-fns": "^2.0.0-beta.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SampsonCrowley/web-helpers.git"
+  },
+  "keywords": [
+    "utilities",
+    "web",
+    "ESModules"
+  ],
+  "author": "Sampson Crowley <sampsonsprojects@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/SampsonCrowley/web-helpers/issues"
+  },
+  "homepage": "https://github.com/SampsonCrowley/web-helpers#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "4f804aafb6422ad672f5d0348063c242d33ba97e"
+}

@@ -39,22 +39,27 @@
     "build:rollup": "rimraf package && rollup -c rollup.config.js"
   },
   "devDependencies": {
+    "@babel/cli": "^7.5.5",
     "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-class-properties": "^7.5.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/plugin-transform-template-literals": "^7.4.4",
+    "@babel/preset-env": "^7.4.5",
     "@open-wc/storybook": "^0.2.8"
   },
   "dependencies": {
     "@web-helpers/core": ">=0.0.0",
     "@web-helpers/styles": ">=0.0.0",
     "date-fns": "^2.0.0-beta.3",
-    "lit-element": "^2.0.1",
-    "lit-html": "^1.0.0"
+    "lit-element": "^2.2.1",
+    "lit-html": "^1.1.1"
   },
   "peerDependencies": {
     "@web-helpers/core": ">=0.0.0",
     "@web-helpers/styles": ">=0.0.0",
-    "date-fns": "^1.30.1",
-    "lit-element": "^2.0.1",
-    "lit-html": "^1.0.0"
+    "date-fns": "^2.0.0-beta.3",
+    "lit-element": "^2.2.1",
+    "lit-html": "^1.1.1"
   },
   "lint-staged": {
     "*.js": [
