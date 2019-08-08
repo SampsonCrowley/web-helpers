@@ -22,8 +22,8 @@
     "test:bs": "karma start karma.bs.config.js --legacy --coverage"
   },
   "dependencies": {
-    "@web-helpers/core": ">=0.0.0",
     "@web-helpers/calendar-element": ">=0.0.0",
+    "@web-helpers/core": ">=0.0.0",
     "@web-helpers/easy-layout": ">=0.0.0",
     "@web-helpers/elixir-webpack-config": ">=0.0.0",
     "@web-helpers/icons": ">=0.0.0",
@@ -37,6 +37,7 @@
     "@babel/cli": "^7.5.5",
     "@babel/core": "^7.5.5",
     "@babel/plugin-proposal-class-properties": "^7.5.0",
+    "@babel/plugin-proposal-decorators": "^7.4.4",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/plugin-transform-template-literals": "^7.4.4",
     "@babel/preset-env": "^7.4.5",

@@ -9,7 +9,7 @@ const DateSerializer  = {
     try {
       if(!value || value === 'null') return null
 
-      value = parse(value)
+      value = parse(value, true)
     } catch(err) {
       console.error(err)
       value = null

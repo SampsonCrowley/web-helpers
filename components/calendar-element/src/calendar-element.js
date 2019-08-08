@@ -68,36 +68,38 @@ export default class CalendarElement extends LitElement {
 
   render() {
     return html`
-      <header style="${this.headerStyle || ''}">
-        <div class="calendar-nav" data-function='previous-month' @click="${this._previousMonth}" >
-          <i class="material-icons clickable">
-            chevron_left
-          </i>
-        </div>
+      <section id="calendar-section-wrapper">
+        <header style="${this.headerStyle || ''}">
+          <div class="calendar-nav" data-function='previous-month' @click="${this._previousMonth}" >
+            <i class="material-icons clickable">
+              chevron_left
+            </i>
+          </div>
 
-        <span>
-          ${this._formattedMonth}
-        </span>
+          <span>
+            ${this._formattedMonth}
+          </span>
 
-        <div class="calendar-nav" data-function='previous-month' @click="${this._nextMonth}">
-          <i class="material-icons clickable">
-            chevron_right
-          </i>
-        </div>
-      </header>
+          <div class="calendar-nav" data-function='previous-month' @click="${this._nextMonth}">
+            <i class="material-icons clickable">
+              chevron_right
+            </i>
+          </div>
+        </header>
 
-      <ul class="weekdays">
-        ${this.weekdays}
-      </ul>
+        <ul class="weekdays">
+          ${this.weekdays}
+        </ul>
 
-      <calendar-element-body
-        .startDate="${this._bodyStartDate}"
-        .endDate="${this._bodyEndDate}"
-        .currentMonth="${this._currentMonth}"
-        .selectedDate="${this.selectedDate}"
-        .dayFormat="${this.dayFormat}"
-        @date-clicked=${this._onDateClick}
-      ></calendar-element-body>
+        <calendar-element-body
+          .startDate="${this._bodyStartDate}"
+          .endDate="${this._bodyEndDate}"
+          .currentMonth="${this._currentMonth}"
+          .selectedDate="${this.selectedDate}"
+          .dayFormat="${this.dayFormat}"
+          @date-clicked=${this._onDateClick}
+        ></calendar-element-body>
+      </section>
     `
   }
 
@@ -110,27 +112,33 @@ export default class CalendarElement extends LitElement {
   }
 
   set selectedDate(value) {
-    const oldValue = this._selectedDate
+    const oldValue = this.selectedDate,
+          newValue = parseValidDate(value),
+          newFormatted = (newValue && dateFnsFormat(newValue, 'yyyy-MM-dd')),
+          oldFormatted = (oldValue && dateFnsFormat(oldValue, 'yyyy-MM-dd'))
 
-    this._selectedDate = parseValidDate(value)
+    if(newFormatted !== oldFormatted) {
+      this._selectedDate = newValue
 
-    this.requestUpdate('selectedDate', oldValue)
+      this.requestUpdate('selectedDate', oldValue)
 
-    if(this.selectedDate && !dateFnsIsSameMonth(this.selectedDate, this._startOfMonth)) {
-      this._currentMonth = this.selectedDate
-      this._buildStateForMonth()
+      if(this.selectedDate && !dateFnsIsSameMonth(this.selectedDate, this._startOfMonth)) {
+        this._currentMonth = this.selectedDate
+        this._buildStateForMonth()
+      }
+
+      this.dispatchEvent(
+        new CustomEvent(
+          'date-change',
+          {
+            detail: { date: this.selectedDate, value: this.selectedDate ? dateFnsFormat(this.selectedDate, 'yyyy-MM-dd') : null },
+            bubbles: true,
+            composed: true,
+            cancelable: true,
+          }
+        )
+      );
     }
-
-    this.dispatchEvent(
-      new CustomEvent(
-        'date-change',
-        {
-          detail: { date: this.selectedDate, value: this.selectedDate ? dateFnsFormat(this.selectedDate, 'yyyy-MM-dd') : null },
-          bubbles: true,
-          cancelable: false,
-        }
-      )
-    );
   }
 
   get labelFormat() {

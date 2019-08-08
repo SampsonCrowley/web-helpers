@@ -4,8 +4,9 @@ import {
   parse,
 } from 'date-fns'
 
-export default function parseDate(value) {
+function parser(value) {
   try {
+    if(value instanceof Date) return value
     if(typeof value === "string") {
       let dt
 
@@ -28,6 +29,8 @@ export default function parseDate(value) {
 
         return parse(value, s, new Date)
       }
+
+      throw new Error('Invalid Format')
     } else {
       return toDate(value)
     }
@@ -37,8 +40,15 @@ export default function parseDate(value) {
   }
 }
 
-export function parseValidDate(value) {
-  value = parseDate(value)
+export default function parseDate(value, dateOnly) {
+  const parsed = parser(value)
+  return dateOnly
+    ? new Date(parsed.getFullYear(), parsed.getMonth(), parsed.getDate())
+    : parsed
+}
+
+export function parseValidDate(value, dateOnly) {
+  value = parseDate(value, dateOnly)
   return validDate(value) ? value : null
 }
 
