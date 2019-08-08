@@ -114,7 +114,7 @@ describe('CalendarElement (<calendar-element></calendar-element>)', () => {
 
           describe('Properties', () => {
             describe('value', () => {
-              describe('when .selectedDate is set', () => {
+              context('when .selectedDate is set', () => {
                 it("is a String", () => {
                   expect(typeof ev.detail.value).to.eq('string')
                 })
@@ -124,7 +124,7 @@ describe('CalendarElement (<calendar-element></calendar-element>)', () => {
                 })
               })
 
-              describe('when .selectedDate is unset', () => {
+              context('when .selectedDate is unset', () => {
                 beforeEach(async () => {
                   el.selectedDate = null
                   ev = await eventDidFire()
@@ -137,7 +137,7 @@ describe('CalendarElement (<calendar-element></calendar-element>)', () => {
             })
 
             describe('date', () => {
-              describe('when .selectedDate is set', () => {
+              context('when .selectedDate is set', () => {
                 it("is a Date", () => {
                   expect(typeof ev.detail.date).to.eq('object')
                   expect(ev.detail.date instanceof Date).to.be.true
@@ -148,7 +148,7 @@ describe('CalendarElement (<calendar-element></calendar-element>)', () => {
                 })
               })
 
-              describe('when .selectedDate is unset', () => {
+              context('when .selectedDate is unset', () => {
                 beforeEach(async () => {
                   el.selectedDate = null
                   ev = await eventDidFire()

@@ -21,7 +21,8 @@ describe('CalendarElement (<calendar-element></calendar-element>)', () => {
 
       it('is is bound to the `selected-date` attribute', async () => {
         const el = await fixture('<calendar-element selected-date="12/19/1991"></calendar-element>');
-        expect(el.selectedDate instanceof Date).to.eq(true)
+        expect(el.selectedDate).to.be.an.instanceOf(Date)
+        expect(el.selectedDate.toISOString()).to.eq(new Date(1991, 11, 19).toISOString())
 
         el.selectedDate = new Date(2000,0,1)
         await elementUpdated(el)
@@ -42,24 +43,32 @@ describe('CalendarElement (<calendar-element></calendar-element>)', () => {
         expect(el.selectedDate).to.not.eq(null)
       });
 
-      describe('when an invalid date is entered', () => {
+      context('when an invalid date is entered', () => {
         const err = console.error
-        let loggedError
+        let loggedError = null
 
         before(async () => {
           console.error = (e) => loggedError = e
         })
 
+        beforeEach(async () => loggedError = null)
+
         after(async () => {
           console.error = err
         })
 
-        it('does not change', async () => {
-          const el = await fixture('<calendar-element selected-date="asdf"></calendar-element>');
-          expect(el.selectedDate).to.be.null
+        it('sets the value to NULL', async () => {
+          const el = await fixture('<calendar-element selected-date="2019-01-01"></calendar-element>');
+          expect(el.selectedDate).to.not.be.null
 
           el.selectedDate = new Date(NaN)
           expect(el.selectedDate).to.be.null
+        });
+
+        it('Logs the invalid date as an Error', async () => {
+          const el = await fixture('<calendar-element selected-date="asdf"></calendar-element>');
+          expect(loggedError).to.be.an.instanceOf(Error)
+          expect(loggedError.message).to.include('Invalid Format')
         });
       })
     })

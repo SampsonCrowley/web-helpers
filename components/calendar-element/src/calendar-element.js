@@ -27,14 +27,25 @@ export default class CalendarElement extends LitElement {
   static get properties() {
     return {
       selectedDate: {
-        attribute: 'selected-date',
         converter: DateSerializer,
         reflect: true,
       },
-      headerFormat: { type: String },
-      headerStyle: { type: String },
-      labelFormat: { type: String },
-      dayFormat: { type: String },
+      dayFormat: {
+        type: String,
+        reflect: true
+      },
+      headerFormat: {
+        type: String,
+        reflect: true
+      },
+      labelFormat: {
+        type: String,
+        reflect: true
+      },
+      headerStyle: {
+        type: String,
+        reflect: true
+      },
       _currentMonth: { attribute: false },
       _startDate: { attribute: false },
       _formattedMonth: { type: String },
@@ -141,18 +152,16 @@ export default class CalendarElement extends LitElement {
     }
   }
 
-  get labelFormat() {
-    return this._labelFormat || labelFormat
+  get headerStyle() {
+    return this._headerStyle || ''
   }
 
-  set labelFormat(value) {
-    const oldValue = this._labelFormat
+  set headerStyle(value) {
+    const oldValue = this._headerStyle
 
-    this._labelFormat = String(value || '')
+    this._headerStyle = String(value || '')
 
-    this._buildWeekdays()
-
-    this.requestUpdate('labelFormat', oldValue)
+    this.requestUpdate('headerStyle', oldValue)
   }
 
   get dayFormat() {
@@ -163,8 +172,33 @@ export default class CalendarElement extends LitElement {
     const oldValue = this._dayFormat
 
     this._dayFormat = String(value || '')
+    try {
+      dateFnsFormat(this._currentMonth, this._dayFormat)
+    } catch (err) {
+      console.error(err)
+      this._dayFormat = null
+    }
+
 
     this.requestUpdate('dayFormat', oldValue)
+  }
+
+  get headerFormat() {
+    return this._headerFormat || headerFormat
+  }
+
+  set headerFormat(value) {
+    const oldValue = this._headerFormat
+
+    this._headerFormat = String(value || '')
+
+    try {
+      this._formattedMonth = this._calcHeaderText(this._currentMonth)
+      this.requestUpdate('headerFormat', oldValue)
+    } catch (err) {
+      console.error(err)
+      this._headerFormat = null
+    }
   }
 
   get labelFormat() {
@@ -176,11 +210,17 @@ export default class CalendarElement extends LitElement {
 
     this._labelFormat = String(value || '')
 
-    this.requestUpdate('labelFormat', oldValue)
+    try {
+      this._buildWeekdays()
+      this.requestUpdate('labelFormat', oldValue)
+    } catch (err) {
+      console.error(err)
+      return this._labelFormat = null
+    }
   }
 
-  _calcHeaderText(date, providedFormat) {
-    return dateFnsFormat(date, providedFormat || headerFormat)
+  _calcHeaderText(date) {
+    return dateFnsFormat(date, this.headerFormat)
   }
 
   _calcWeekStart(date) {
@@ -205,7 +245,7 @@ export default class CalendarElement extends LitElement {
     this._startDate      = this._calcWeekStart(this._currentMonth),
     this._bodyStartDate  = this._calcWeekStart(this._startOfMonth),
     this._bodyEndDate    = this._calcWeekEnd(this._endOfMonth),
-    this._formattedMonth = this._calcHeaderText(this._currentMonth, this.headerFormat)
+    this._formattedMonth = this._calcHeaderText(this._currentMonth)
   }
 
   _buildWeekdays = () =>
