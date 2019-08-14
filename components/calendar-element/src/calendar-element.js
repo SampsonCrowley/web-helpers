@@ -16,7 +16,6 @@ import {
 import { parseValidDate } from '@web-helpers/core'
 
 import './calendar-element-body'
-import './calendar-element-header'
 
 const headerFormat = 'MMMM yyyy',
       labelFormat = "EEEE",
@@ -79,7 +78,7 @@ export default class CalendarElement extends LitElement {
 
   render() {
     return html`
-      <section id="calendar-section-wrapper">
+      <section id="calendar-element-section-wrapper">
         <header style="${this.headerStyle || ''}">
           <div class="calendar-nav" data-function='previous-month' @click="${this._previousMonth}" >
             <i class="material-icons clickable">
@@ -91,7 +90,7 @@ export default class CalendarElement extends LitElement {
             ${this._formattedMonth}
           </span>
 
-          <div class="calendar-nav" data-function='previous-month' @click="${this._nextMonth}">
+          <div class="calendar-nav" data-function='next-month' @click="${this._nextMonth}">
             <i class="material-icons clickable">
               chevron_right
             </i>

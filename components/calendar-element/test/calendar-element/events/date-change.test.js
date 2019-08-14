@@ -10,11 +10,11 @@ import {
   elementUpdated,
 } from '@open-wc/testing-helpers';
 
-import '../../src/calendar-element';
+import '../../../src/calendar-element';
 
-describe('CalendarElement (<calendar-element></calendar-element>)', () => {
-  describe('Events', () => {
-    describe('date-change', () => {
+describe('CalendarElement (<calendar-element></calendar-element>)', function() {
+  describe('Events', function() {
+    describe('date-change', function() {
       let el, firedEvent = null
 
       const create = () => fixture('<calendar-element></calendar-element>'),
@@ -47,12 +47,12 @@ describe('CalendarElement (<calendar-element></calendar-element>)', () => {
         firedEvent = null
       })
 
-      it('is fired when .selectedDate changes', async () => {
+      it('is fired when .selectedDate changes', async function() {
         let result
         const d = new Date,
               expectEvent = async () => {
                 expect(result = await eventDidFire()).to.be.a('CustomEvent')
-                expect(result.type).to.eq('date-change')
+                expect(result.type).to.equal('date-change')
               },
               expectNull = async () => {
                 expect(await eventDidFire()).to.be.null
@@ -80,81 +80,81 @@ describe('CalendarElement (<calendar-element></calendar-element>)', () => {
         await expectNull()
       }).timeout(10000);
 
-      describe('Properties', () => {
-        let ev, date =
+      describe('Properties', function() {
+        let ev
 
         beforeEach(async () => {
           el.selectedDate = new Date(2000,0,1)
           ev = await eventDidFire()
         })
 
-        describe('.bubbles', () => {
-          it('is true', async () => {
+        describe('.bubbles', function() {
+          it('is true', async function() {
             expect(ev.bubbles).to.be.true
           })
         })
 
-        describe('.composed', () => {
-          it('is true', async () => {
+        describe('.composed', function() {
+          it('is true', async function() {
             expect(ev.composed).to.be.true
           })
         })
 
-        describe('.cancelable', () => {
-          it('is true', async () => {
+        describe('.cancelable', function() {
+          it('is true', async function() {
             expect(ev.cancelable).to.be.true
           })
         })
 
         // detail: { date: this.selectedDate, value: this.selectedDate ? dateFnsFormat(this.selectedDate, 'yyyy-MM-dd') : null },
-        describe('.detail', () => {
-          it("is an object", () => {
-            expect(typeof ev.detail).to.eq('object')
+        describe('.detail', function() {
+          it("is an object", async function() {
+            expect(typeof ev.detail).to.equal('object')
           })
 
-          describe('Properties', () => {
-            describe('value', () => {
-              context('when .selectedDate is set', () => {
-                it("is a String", () => {
-                  expect(typeof ev.detail.value).to.eq('string')
+          describe('Properties', function() {
+            describe('value', function() {
+              context('when .selectedDate is set', function() {
+                it("is a String", async function() {
+                  expect(typeof ev.detail.value).to.equal('string')
                 })
 
-                it("is the current .selectedDate in ISO 8601 format (yyyy-MM-dd)", () => {
-                  expect(ev.detail.value).to.eq('2000-01-01')
+                it("is the current .selectedDate in ISO 8601 format (yyyy-MM-dd)", async function() {
+                  expect(ev.detail.value).to.equal('2000-01-01')
                 })
               })
 
-              context('when .selectedDate is unset', () => {
+              context('when .selectedDate is unset', function() {
                 beforeEach(async () => {
                   el.selectedDate = null
                   ev = await eventDidFire()
                 })
 
-                it("is null", () => {
+                it("is null", async function() {
                   expect(ev.detail.value).to.be.null
                 })
               })
             })
 
-            describe('date', () => {
-              context('when .selectedDate is set', () => {
-                it("is a Date", () => {
-                  expect(typeof ev.detail.date).to.eq('object')
+            describe('date', function() {
+              context('when .selectedDate is set', function() {
+                it("is a Date", async function() {
+                  expect(typeof ev.detail.date).to.equal('object')
                   expect(ev.detail.date instanceof Date).to.be.true
                 })
 
-                it("is the current .selectedDate", () => {
-                  expect(ev.detail.date).to.eq(el.selectedDate)
+                it("is the current .selectedDate", async function() {
+                  expect(ev.detail.date).to.equal(el.selectedDate)
                 })
               })
 
-              context('when .selectedDate is unset', () => {
+              context('when .selectedDate is unset', function() {
                 beforeEach(async () => {
                   el.selectedDate = null
                   ev = await eventDidFire()
                 })
 
-                it("is null", () => {
+                it("is null", async function() {
                   expect(ev.detail.date).to.be.null
                 })
               })

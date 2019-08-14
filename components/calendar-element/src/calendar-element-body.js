@@ -43,16 +43,20 @@ export class CalendarElementBody extends LitElement {
     if(!changed.has('_rows')) this._buildRows()
   }
 
-  _onDateClick = (ev) => this.dispatchEvent(
-    new CustomEvent(
-      'date-clicked',
-      {
-        detail: { date: new Date(+ev.currentTarget.dataset.date) },
-        bubbles: true,
-        cancelable: false,
-      }
+  _onDateClick = (ev) => {
+    const date = new Date(+ev.currentTarget.dataset.date)
+    return this.dispatchEvent(
+      new CustomEvent(
+        'date-clicked',
+        {
+          detail: { date, value: dateFnsFormat(date, 'yyyy-MM-dd') },
+          bubbles: true,
+          cancelable: true,
+          composed: true,
+        }
+      )
     )
-  )
+  }
 
   _buildRows = () => {
     const rows = [];
