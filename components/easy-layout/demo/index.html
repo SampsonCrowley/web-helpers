@@ -1,12 +1,17 @@
 <!doctype html>
 <html lang="en-US">
 <head>
-  <base href="/components/easy-layout/">
+  <!-- <base href="/components/easy-layout/"> -->
   <meta charset="utf-8">
   <style>
+    html,
+    body {
+      margin: 0;
+    }
     body {
       background: #fafafa;
       font-family: Arial;
+      margin: 0;
     }
   </style>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="preload" as="style">
@@ -15,7 +20,19 @@
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,900" rel="stylesheet">
 </head>
 <body>
-  <a href="/">HOME</a>
-  <a href="demo/client.html">Client Layout</a>
+  <div id="demo"></div>
+  <script type="module">
+    import { html, render } from 'lit-html';
+    import '@web-helpers/easy-layout';
+    //
+    render(
+      html`
+        <easy-layout-client app-title="Easy Client Layout" links='["banner","nowhere"]'></easy-layout-client>
+        <a style="display: none" href="banner" id="asdf">asdf</a>
+      `,
+      document.querySelector('#demo')
+    );
+    setTimeout(() => document.getElementById('asdf').click())
+  </script>
 </body>
 </html>

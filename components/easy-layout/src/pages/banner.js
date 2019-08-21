@@ -3,7 +3,7 @@ import BasePage from './base'
 
 import { DisplayStyles, GridStyles, SharedStyles } from '@web-helpers/styles';
 
-export class HomePage extends BasePage {
+export class BannerPage extends BasePage {
   static get styles() {
     return [
       SharedStyles,
@@ -24,10 +24,16 @@ export class HomePage extends BasePage {
         .banner * {
           margin: 0;
         }
-        .banner h1 {
+        .banner h1,
+        .banner ::slotted(h1) {
           line-height: 1;
           font-size: 10vmin;
           text-transform: uppercase;
+        }
+        .banner .banner-top {
+          display: var(--banner-page-top-display)
+          font-size: var(--banner-page-font-size)
+          font-size: var(--banner-page-font-size)
         }
         .banner .scroll-helper {
           position: absolute;
@@ -44,7 +50,7 @@ export class HomePage extends BasePage {
           border: .2rem solid rgba(2,117,216,.6);
         }
         @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-          .banner:after {
+          .banner::after {
             content: '';
             background: rgba(34, 34, 34, 0.5);
             position: absolute;
@@ -93,18 +99,29 @@ export class HomePage extends BasePage {
   render() {
     return html`
       <section class="banner d-vertical d-center-center">
-        <h1>Banner</h1>
-        <p>Sub Banner</p>
-        <h1>Big Again</h1>
+        <slot name="banner">
+          <h1>Big Text</h1>
+          <p>Smaller Text</p>
+          <h1>Big Text Again</h1>
+        </slot>
         <div class="scroll-helper">
-          Scroll For More Info!
+          <slot name="scroll-text">
+            Scroll For More Info!
+          </slot>
         </div>
       </section>
-      <section class="container">
-        <p>Vestibulum at est ex. Aenean id ligula id nibh dictum laoreet. Etiam non semper erat. Pellentesque eu justo rhoncus diam vulputate facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam feugiat metus ex, vel fringilla massa tincidunt sit amet. Nunc facilisis bibendum tristique. Mauris commodo, dolor vitae dapibus fermentum, odio nibh viverra lorem, eu cursus diam turpis et sapien. Nunc suscipit tortor a ligula tincidunt, id hendrerit tellus sollicitudin.</p>
-      </section>
+      <slot name="content">
+        <section class="container">
+          <slot>
+            <p>
+              Vestibulum at est ex. Aenean id ligula id nibh dictum laoreet. Etiam non semper erat. Pellentesque eu justo rhoncus diam vulputate facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam feugiat metus ex, vel fringilla massa tincidunt sit amet. Nunc facilisis bibendum tristique. Mauris commodo, dolor vitae dapibus fermentum, odio nibh viverra lorem, eu cursus diam turpis et sapien. Nunc suscipit tortor a ligula tincidunt, id hendrerit tellus sollicitudin.
+            </p>
+          </slot>
+        </section>
+      </slot>
+
     `;
   }
 }
 
-window.customElements.define('easy-layout-page-home', HomePage);
+window.customElements.define('easy-layout-page-banner', BannerPage);

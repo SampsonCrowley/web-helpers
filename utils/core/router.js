@@ -23,7 +23,7 @@ export default class Router {
   static register(cb) {
     this._changeListeners.push(cb)
     this.mount()
-    cb({ location: window.location })
+    cb(this._response())
   }
 
   static unregister(cb) {
@@ -33,6 +33,22 @@ export default class Router {
     }
 
     if(!this._changeListeners.length) this.unmount()
+  }
+
+  static get basePath() {
+    return ((document.querySelector('base') || {}).href || '').replace(this.origin, '').replace(/^\//, '')
+  }
+
+  static get location() {
+    return window.location
+  }
+
+  static get origin() {
+    return window.location.origin || window.location.protocol + '//' + window.location.host
+  }
+
+  static _response(event = {}) {
+    return { location: this.location, basePath: this.basePath || '', event }
   }
 
   static _onClick = event => {
@@ -55,10 +71,10 @@ export default class Router {
 
     const href = anchor.href;
 
-    if(!href || href.indexOf('mailto:') !== -1) return;
+    if(!href || /^((?!http)[A-Za-z]+):/.test(href)) return;
 
-    const location = window.location,
-          origin   = location.origin || location.protocol + '//' + location.host
+    const location = this.location,
+          origin   = this.origin
 
     if(href.indexOf(origin) !== 0) return;
 
@@ -70,8 +86,9 @@ export default class Router {
     }
   }
 
+
   static _broadcast = event => {
-    const response = { location: window.location, event }
+    const response = this._response(event)
     for(let i = 0; i < this._changeListeners.length; i++) {
       this._changeListeners[i](response)
     }

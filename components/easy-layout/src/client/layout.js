@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit-element'
+import { ifDefined } from 'lit-html/directives/if-defined';
 import MediaQuery from '@web-helpers/core/media-query'
 import ConnectionSpeed from '@web-helpers/core/connection-speed'
 import Router from '@web-helpers/core/router'
@@ -18,6 +19,7 @@ export class ClientLayout extends LitElement {
     return {
       appTitle: { type: String },
       links: { type: Array },
+      defaultPage: { type: String },
       _page: { type: String },
       _drawerOpened: { type: Boolean },
       _snackbarOpened: { type: Boolean },
@@ -38,7 +40,6 @@ export class ClientLayout extends LitElement {
 
   render() {
     let active
-    console.log(this._page)
     // Anything that's related to rendering should be done in here.
     return html`
       <!-- Header -->
@@ -67,7 +68,7 @@ export class ClientLayout extends LitElement {
       <!-- Main content -->
       <main id="easy-layout-client-main-slot" role="main" class="main-content">
         <slot>
-          <easy-layout-page-home class="page" ?active="${this._page === 'home' && (active = true)}"></easy-layout-page-home>
+          <easy-layout-page-banner class="page" ?active="${(this._page === 'banner' || /component/.test(this._page)) && (active = true)}"></easy-layout-page-banner>
           <easy-layout-page-four-oh-four class="page" ?active="${!active}"></easy-layout-page-four-oh-four>
         </slot>
       </main>
@@ -91,7 +92,7 @@ export class ClientLayout extends LitElement {
   constructor() {
     super();
     this._drawerOpened = false;
-    this.links = [ 'home' ]
+    this.links = [ 'banner' ]
   }
 
   connectedCallback() {
@@ -143,9 +144,9 @@ export class ClientLayout extends LitElement {
     }
   }
 
-  _locationChanged = ({ location }) => {
-    const path = window.decodeURIComponent(location.pathname);
-    const page = path === '/' ? 'home' : path.slice(1);
+  _locationChanged = ({ location, basePath }) => {
+    const path = window.decodeURIComponent(location.pathname).replace(basePath, '');
+    const page = path === '/' ? this.defaultPage || 'sample' : path.slice(1);
     this.loadPage(page);
     this._setNavLinks()
     // Close the drawer - in case the *path* change came from a link in the drawer.
@@ -167,14 +168,13 @@ export class ClientLayout extends LitElement {
   }
 
   loadPage(page) {
-    let found = false;
     switch(page) {
-      case 'home':
+      case 'banner':
         import(
-          /* webpackChunkName: "page-home" */
-          '../pages/home'
+          /* webpackChunkName: "page-banner" */
+          '../pages/banner'
         ).then(() => {
-          // this._setMain('home')
+          // this._setMain('banner')
         })
         break;
       default:
@@ -204,15 +204,18 @@ export class ClientLayout extends LitElement {
       if(link.type === 'html') return link
       if(typeof link === 'function') return link(this._page)
 
-      const selected = link.match instanceof RegExp
-        ? link.match.test(this._page)
-        : typeof link.match === 'function'
-          ? link.match(link, this._page, this.links)
-          : this._page === (link.match || link.value)
+      const selected = this._linkIsSelected(link, this._page)
 
-      return html`<a ?selected="${selected}" href="/${link.value}">${link.display}</a>`
+      return html`<a ?selected="${selected}" class="${ifDefined(link.className)}" target=${ifDefined(link.target)} href="${link.value}">${link.display}</a>`
     })
   }
+
+  _linkIsSelected = (link, page) =>
+    link.match instanceof RegExp
+      ? link.match.test(page)
+      : typeof link.match === 'function'
+        ? link.match(link, page, this.links)
+        : page === (link.match || link.value)
 
   get _mainEl() {
     this._mainElement || (this._mainElement = this.shadowRoot.getElementById('easy-layout-client-main-slot'))
@@ -238,13 +241,14 @@ export class ClientLayout extends LitElement {
     try {
       for(let link of newLinks) {
         if(link) {
-          if(typeof link === 'string') link = { value: link }
+          if(typeof link === 'string') link = { value: link, import: `../pages/${link.value}` }
           if(typeof link === 'object') {
             if(link.type && link.type === 'html') links.push(link)
             else links.push({
+              ...link,
               value: link.value,
               match: link.match || new RegExp(`^${link.value}`),
-              display: link.display || link.value.split(' ').map(v => `${v[0].toUpperCase()}${v.slice(1)}`).join(' ')
+              display: link.display || link.value.split(' ').map(v => `${v[0].toUpperCase()}${v.slice(1)}`).join(' '),
             })
           }
           else if(typeof link === 'function') links.push(link)
@@ -255,7 +259,7 @@ export class ClientLayout extends LitElement {
       this._setNavLinks()
       this.requestUpdate('links', linksWas)
     } catch (err) {
-      this.links = [ ...linksWas ]
+      this.links = [ ...(linksWas || []) ]
     }
   }
 }
