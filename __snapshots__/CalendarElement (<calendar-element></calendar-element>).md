@@ -16,7 +16,7 @@
       </i>
     </div>
     <span>
-      August 2019
+      February 2026
     </span>
     <div
       class="calendar-nav"
