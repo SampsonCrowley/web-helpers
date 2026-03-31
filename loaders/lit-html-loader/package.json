@@ -14,13 +14,13 @@
     "html-minifier": "^4.0.0",
     "lit-element": "^2.2.1",
     "lit-html": "^1.1.1",
-    "sanitize-html": "^1.20.1"
+    "sanitize-html": "^2.3.2"
   },
   "dependencies": {
     "html-minifier": "^4.0.0",
     "lit-element": "^2.2.1",
     "lit-html": "^1.1.1",
-    "sanitize-html": "^1.20.1"
+    "sanitize-html": "^2.3.2"
   },
   "publishConfig": {
     "access": "public"
